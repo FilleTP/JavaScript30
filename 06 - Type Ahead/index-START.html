@@ -17,6 +17,75 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = []
+
+fetch(endpoint)
+  .then(datablob => datablob.json())
+  .then(data => cities.push(...data));
+
+const findMatches = (word, cities) => {
+  return cities.filter(place => {
+
+    const regex = new RegExp(word, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+  })
+};
+
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+};
+
+const displayMatches = (e) => {
+  const matchArray = findMatches(e.target.value, cities);
+  const html = matchArray.map(place => {
+    const regex = new RegExp(e.target.value, 'gi');
+    const cityName = place.city.replace(regex, `<span class="hl">${e.target.value}</span>`)
+    const stateName = place.state.replace(regex, `<span class="hl">${e.target.value}</span>`)
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+      `;
+  }).join('');
+  searchSuggestions.innerHTML = html;
+}
+
+const searchInput = document.querySelector(".search");
+const searchSuggestions = document.querySelector(".suggestions");
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+// searchSuggestions.addEventListener('')
 </script>
 </body>
 </html>
+
+
+<!--
+  1. fetch data into array
+  2. returns a promise
+  3. have to call .then on prom, returns "blob" of data
+  4. data that browser doesnt know what type it is
+  5. call JSON on it returns another prom
+  6. Call JSON on this gives the raw data
+  7. pushing the raw data into cities gives array of arrays
+  8. spread function ... to give single array of items
+  9. create find match function that takes search word and citites as arguments
+  10. figure out if city or state matches search word
+  11. put variable "word" into regex
+  12. create REGEX const within function
+  13. filter cities, taking city as argument (using place instead)
+  14. return matching city for regex, or || state
+  15. create display function
+  16. create consts of search and suggestion inputs
+  17. create change and keyup event on them, with display function
+  18. use matching function within display function, create match array takes the value
+  19. create html with map from matching array => into "li"
+  20. html of city, state and separate "span" for population
+  21. on the selected suggestions put in innerHTML
+  22. .join on the display function to make into a string
+  23. highlight search, create new regex, replace the span in the suggestions with this
+  24. this will find whatever it found in the regex and replace it with the search
+ -->
