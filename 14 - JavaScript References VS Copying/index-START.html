@@ -29,6 +29,11 @@
     // one way
 
     // or create a new array and concat the old one in
+    const team = players.slice();
+    const team1 = [].concat(players);
+    const team2 = [...players];
+    const team3 = Array.from(players);
+    // const team1 = players.concat
 
     // or use the new ES6 Spread
 
@@ -41,6 +46,10 @@
       name: 'Wes Bos',
       age: 80
     };
+
+    const newObj = Object.assign({}, person, { number: 99, age: 12});
+
+    const newObj2 = JSON.parse(JSON.stringify(person))
 
     // and think we make a copy:
 
