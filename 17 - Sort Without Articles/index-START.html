@@ -26,12 +26,13 @@
       padding: 0;
       box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
     }
-    
+
     #bands li {
       border-bottom: 1px solid #efefef;
       padding: 20px;
+      list-style: none;
     }
-    
+
     #bands li:last-child {
       border-bottom: 0;
     }
@@ -47,6 +48,17 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+// strip funtion
+  function strip(bandname) {
+  return bandname.replace(/^(a |an |the |oh )/i, '').trim();
+}
+// sorting
+const sortedBands = bands.sort((a , b) => strip(a) > strip(b) ? 1 : -1);
+//replace inner html
+document.querySelector("#bands").innerHTML =
+  sortedBands
+  .map(band => `<li>${band}</li>`)
+  .join('');
 
 
 </script>
