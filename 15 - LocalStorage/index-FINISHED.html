@@ -41,7 +41,7 @@
     items.push(item);
     populateList(items, itemsList);
     localStorage.setItem('items', JSON.stringify(items));
-    this.reset();
+    items.reset();
   }
 
   function populateList(plates = [], platesList) {
@@ -74,4 +74,3 @@
 
 </body>
 </html>
-
