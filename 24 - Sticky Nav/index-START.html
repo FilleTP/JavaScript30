@@ -55,6 +55,27 @@
 
 <script>
 
+  const navBar = document.querySelector('#main');
+  let navBarTop = navBar.offsetTop;
+
+  function fixNav() {
+    if (window.scrollY >= navBarTop) {
+      document.body.style.paddingTop = navBar.offsetHeight + 'px';
+      document.body.classList.add('fixed-nav');
+    } else {
+      document.body.classList.remove('fixed-nav');
+      document.body.style.paddingTop = 0;
+    }
+   };
+
+window.addEventListener('scroll', fixNav);
+
+
+// create event listener on scroll
+// When scroll meets top of navbar make it sticky
+// Slide in logo from left
+// When scrolling up and passing point make it unsticky and slide out logo
+// with transition
 </script>
 
 </body>
