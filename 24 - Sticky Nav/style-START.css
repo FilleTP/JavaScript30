@@ -25,10 +25,14 @@ body {
   transition: transform 0.5s;
 }
 
+.fixed-nav .site-wrap {
+  transform: scale(1);
+}
+
 header {
   text-align: center;
   height: 50vh;
-  background: url(https://source.unsplash.com/GKN6rpDr0EI/960x640) bottom center no-repeat;
+  background: url("http://unsplash.it/400/400") bottom center no-repeat;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -69,13 +73,21 @@ li.logo {
   max-width: 0;
   overflow: hidden;
   background: white;
-  transition: all .5s;
+  transition: all 0.5s;
   font-weight: 600;
   font-size: 30px;
 }
 
 li.logo a {
   color: black;
+}
+
+.fixed-nav nav {
+  position: fixed;
+  box-shadow: 0 5px rgba(0,0,0,0.1);
+}
+.fixed-nav li.logo {
+  max-width: 500px;
 }
 
 nav a {
